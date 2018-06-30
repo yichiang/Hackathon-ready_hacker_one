@@ -10,7 +10,7 @@ var createUserTable = function(conn, callback){
 };
 
 var createItemTable = function(conn, callback){
-  conn.query("CREATE TABLE item (itemId INT(11), name VARCHAR(32), imgUrl VARCHAR(128), PRIMARY KEY (itemId))",
+  conn.query("CREATE TABLE item (itemId INT(11), name VARCHAR(32), description VARCHAR(512), price INT(11), imgUrl VARCHAR(128), PRIMARY KEY (itemId))",
    function (err, result) {
     if (err) throw err;
     console.log("table item created");
@@ -59,7 +59,7 @@ var laySchema = function(){
           createItemTable(conn, function(){
             createOrderTable(conn, function(){
               console.log("Done!");
-              //conn.end();
+              conn.end();
             });
           });
         });
