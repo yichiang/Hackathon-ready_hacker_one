@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './../../App.css';
 import './../../css/menu.css';
-import menuData from './../../data/menu.json';
+import menuData_json from './../../data/menu.json';
 import PropTypes from 'prop-types';
 import MenuCard from './MenuCard';
 
@@ -86,6 +86,7 @@ class MenuMain extends Component {
   direction: 'left',
   dimmed: false,
   visible: false,
+  menuData: menuData_json
 }
 
 handleAnimationChange = animation => () =>
@@ -95,8 +96,20 @@ handleDimmedChange = (e, { checked }) => this.setState({ dimmed: checked })
 
 handleDirectionChange = direction => () => this.setState({ direction, visible: false })
 
+handleChangeOrder=(index, diff_count)=>{
+  console.log(index, diff_count);
+  const menuData = this.state.menuData;
+  if(menuData[index].order == null){
+    menuData[index].order = 0;
+  }
+  if(menuData[index].order+=diff_count >=0){
+    menuData[index].order+=diff_count;    
+  }
+  this.setState({menuData: menuData })
+
+}
 render() {
-  const { animation, dimmed, direction, visible } = this.state
+  const { animation, dimmed, direction, visible, menuData } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
@@ -119,10 +132,11 @@ render() {
               Order #20092
             </Header>
             <Segment className='menu_card_parent'>
-              {menuData.map(x=>
+              {menuData.map((x, i)=>
                 {return (
-                    <MenuCard menu={x}></MenuCard>
-
+                  <div>
+                    <MenuCard menu={x} handleChangeOrder={this.handleChangeOrder} itemIndex={i}></MenuCard>
+                  </div>
                 )}
               )
 

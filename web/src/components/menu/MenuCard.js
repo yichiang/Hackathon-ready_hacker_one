@@ -10,7 +10,7 @@ class MenuCard extends Component {
    }
   render() {
     const maxDescLength = 150;
-    const { menu } = this.props;
+    const { menu, itemIndex } = this.props;
     const { name, desc, imageSrc, price} = menu;
     return (
       <Card className='menu_card'>
@@ -24,9 +24,9 @@ class MenuCard extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className='buttonGroup'>
-            <div><Icon name='minus'/></div>
-            <div>3</div>
-            <div><Icon name='plus'/></div>
+            <div onClick={(e) => this.props.handleChangeOrder(itemIndex, -1)}><Icon name='minus'/></div>
+            <div>{menu.order || 0}</div>
+            <div onClick={(e) => this.props.handleChangeOrder(itemIndex, 1)}><Icon name='plus'/></div>
           </div>
         </Card.Content>
       </Card>
