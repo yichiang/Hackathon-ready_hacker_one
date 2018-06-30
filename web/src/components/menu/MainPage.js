@@ -114,7 +114,10 @@ render() {
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
           <Segment basic>
-            <Header as='h2'>Order #20092</Header>
+            <Header as='h2'>
+              <Icon name='food'/>
+              Order #20092
+            </Header>
             <Segment className='menu_card_parent'>
               {menuData.map(x=>
                 {return (

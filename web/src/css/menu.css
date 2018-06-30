@@ -7,3 +7,9 @@
   height: 400px !important;
   margin: 20px 5px!important;
 }
+
+.buttonGroup{
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
