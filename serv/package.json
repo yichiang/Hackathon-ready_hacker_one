@@ -1,0 +1,22 @@
+{
+  "name": "ready-hacker-one-web-service",
+  "version": "1.0.0",
+  "description": "web service for ready hacker one project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephkniest/ready-hacker-one-web-service.git"
+  },
+  "dependencies": {
+    "mysql" : "2.15.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephkniest/ready-hacker-one-web-service/issues"
+  },
+  "homepage": "https://github.com/josephkniest/ready-hacker-one-web-service#readme"
+}
