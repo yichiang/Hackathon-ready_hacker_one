@@ -1,5 +1,11 @@
-.pl_login_form {
-max-width: 40vw;
-margin: auto;
 
+.pl_login_form {
+    max-width: 40vw;
+    margin: 20px auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .pl_login_form {
+      max-width: 100vw;
+  }
 }
