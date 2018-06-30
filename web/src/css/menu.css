@@ -1,0 +1,15 @@
+.menu_card_parent{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #F1EEEE !important;
+}
+.menu_card{
+  height: 400px !important;
+  margin: 20px 5px!important;
+}
+
+.buttonGroup{
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
