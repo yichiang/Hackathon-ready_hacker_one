@@ -6,6 +6,7 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './components/home/Login';
 import Basket from './components/order/Basket';
+import MenuMain from './components/menu/MainPage';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <Switch>
           <Route exact path={'/'} component={() =><Login/>} />
           <Route exact path={'/review'} component={() =><Basket/>} />
+          <Route exact path={'/menu'} component={() =><MenuMain/>} />
           <Route component={Login} />
 
         </Switch>
