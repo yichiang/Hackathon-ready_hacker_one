@@ -11,7 +11,7 @@
     "url": "git+https://github.com/josephkniest/ready-hacker-one-web-service.git"
   },
   "dependencies": {
-    "mysql" : "2.15.0"
+    "mysql": "2.15.0"
   },
   "author": "",
   "license": "ISC",
