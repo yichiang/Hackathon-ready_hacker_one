@@ -17,11 +17,17 @@ class MenuCard extends Component {
         <Image src={imageSrc} />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
-          <Card.Meta>
-            <span className='date'>{price}</span>
-          </Card.Meta>
+
           <Card.Description>{desc.length > maxDescLength? desc.substring(0,maxDescLength) + '...': desc}</Card.Description>
+          {/* <Card.Meta>
+            <span className='date'>${price}</span>
+          </Card.Meta> */}
+          <Card.Meta className='price_meta'>
+            <div>${price}</div>
+
+          </Card.Meta>
         </Card.Content>
+
         <Card.Content extra>
           <div className='buttonGroup'>
             <div onClick={(e) => this.props.handleChangeOrder(itemIndex, -1)}><Icon name='minus'/></div>

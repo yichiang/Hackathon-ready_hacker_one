@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { Header, Image, Table, Button, Icon } from 'semantic-ui-react'
-import './../../App.css';
+import './../../css/menu.css';
 
 class Basket extends Component {
+
+
+
   render() {
+    const { selecItems, currentTotal, handleSubmitReview, isCheckoutPage } = this.props;
+
     return (
         <div>
-            <h1>Basket</h1>
+            <h1>
+              <Icon name='shopping basket'></Icon>
+              Basket
+            </h1>
             <Table basic='very' celled>
                 <Table.Header>
                 <Table.Row>
+                  <Table.HeaderCell>Image</Table.HeaderCell>
                     <Table.HeaderCell>Item</Table.HeaderCell>
                     <Table.HeaderCell>Cost</Table.HeaderCell>
                     <Table.HeaderCell>Quantity</Table.HeaderCell>
@@ -17,76 +26,50 @@ class Basket extends Component {
                 </Table.Header>
 
                 <Table.Body>
-                <Table.Row>
-                    <Table.Cell>
-                    <Header as='h4' image>
-                        <Image src='/images/avatar/small/lena.png' rounded size='mini' />
-                        <Header.Content>
-                        Dish 1
-                        <Header.Subheader>Small</Header.Subheader>
-                        </Header.Content>
-                    </Header>
-                    </Table.Cell>
-                    <Table.Cell>$22.13</Table.Cell>
-                    <Table.Cell>1</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>
-                    <Header as='h4' image>
-                        <Image src='/images/avatar/small/matthew.png' rounded size='mini' />
-                        <Header.Content>
-                        Dish 1
-                        <Header.Subheader>Small</Header.Subheader>
-                        </Header.Content>
-                    </Header>
-                    </Table.Cell>
-                    <Table.Cell>$15.23</Table.Cell>
-                    <Table.Cell>1</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>
-                    <Header as='h4' image>
-                        <Image src='/images/avatar/small/lindsay.png' rounded size='mini' />
-                        <Header.Content>
-                        Dish 1
-                        <Header.Subheader>Small</Header.Subheader>
-                        </Header.Content>
-                    </Header>
-                    </Table.Cell>
-                    <Table.Cell>$15.23</Table.Cell>
-                    <Table.Cell>1</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>
-                    <Header as='h4' image>
-                        <Image src='/images/avatar/small/mark.png' rounded size='mini' />
-                        <Header.Content>
-                        Dish 1
-                        <Header.Subheader>Large</Header.Subheader>
-                        </Header.Content>
-                    </Header>
-                    </Table.Cell>
-                    <Table.Cell>$15.23</Table.Cell>
-                    <Table.Cell>1</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>
-                    <Header as='h4' image>
-                        <Header.Content>
-                        Total
-                        </Header.Content>
-                    </Header>
-                    </Table.Cell>
-                    <Table.Cell colSpan='2'><Header as='h4' image>$115.23</Header></Table.Cell>
-                </Table.Row>
+                  {selecItems&&selecItems.map((x, i)=>{
+
+                    return (
+                      <Table.Row>
+                          <Table.Cell>
+                          <Header as='h4' image>
+                            <Image src={x.imageSrc} rounded/>
+
+                          </Header>
+                          </Table.Cell>
+                          <Table.Cell>
+                          <Header as='h4'>
+                              <Header.Content>
+                              {x.name}
+                              {/* <Header.Subheader>Small</Header.Subheader> */}
+                              </Header.Content>
+                          </Header>
+                          </Table.Cell>
+                          <Table.Cell>
+                            {x.price}
+                          </Table.Cell>
+                          <Table.Cell>
+                            {x.order}
+                          </Table.Cell>
+                      </Table.Row>
+
+                    );
+                  })}
+
                 </Table.Body>
             </Table>
-            <Button animated floated='right'>
-                <Button.Content visible>Place order</Button.Content>
-                <Button.Content hidden>
-                    <Icon name='right arrow' />
-                </Button.Content>
-            </Button>     
+            <div className='btn_bottom_g'>
+              <div>
+                Total: <span className='total_dollar'>$ {currentTotal}</span>
+              </div>
+              {!isCheckoutPage&&
+                <Button animated floated='right' onClick={handleSubmitReview}>
+                    <Button.Content visible>Place order</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='right arrow' />
+                    </Button.Content>
+                </Button>
+              }
+          </div>
         </div>
     );
   }

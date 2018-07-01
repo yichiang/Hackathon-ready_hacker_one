@@ -1,15 +1,38 @@
-.menu_card_parent{
+.menu_card_parent {
   display: flex;
   flex-wrap: wrap;
   background-color: #F1EEEE !important;
+  min-height: 80vh;
 }
-.menu_card{
+.menu_card {
   height: 400px !important;
   margin: 20px 5px!important;
 }
 
-.buttonGroup{
+.buttonGroup {
   display: flex;
   justify-content: space-between;
   font-size: 20px;
+}
+
+.menu_sidebar {
+  background: white !important;
+  padding: 15px !important;
+}
+
+.minWidth {
+max-width: calc(100% - 300px);
+}
+
+.btn_bottom_g{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total_dollar{
+
+}
+
+.price_meta{
+  text-align: right;
 }
