@@ -43,12 +43,15 @@ function addFoodItemToOrder(userID,orderID,foodID,callback){
 
 
     //Order with item ID exists
-    var cmd="SELECT * FROM order_tb WHERE orderId=" + orderID;
+    var cmd="SELECT * FROM order_tb WHERE orderId=" + orderID + " and itemId=" + foodID;
     console.log(cmd);
     con.query(cmd,function(err,data){
+      console.log("Fetched:");
+      console.log(data);
       console.log(cmd);
-      if(!data){
+      if(!data || data.length === 0 || !data[0]){
         var cmd="INSERT INTO order_tb (userId,orderId,itemId,qty,placed,fulfilled,canceled) VALUES ("+userID+","+orderID+","+foodID+","+"1,"+"NULL, NULL, NULL)";
+        console.log(cmd);
         con.query(cmd,function(err,data){
           var result = true;
           if(err){
@@ -58,9 +61,6 @@ function addFoodItemToOrder(userID,orderID,foodID,callback){
           con.end();
           callback(result);
         });
-      } else if(data.length === 0 || !data[0]) {
-        console.log("Data is corrupted! Found empty record.");
-        callback(false);
       } else {
         console.log("Fetched:");
         console.log(data[0]);
