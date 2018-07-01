@@ -1,6 +1,6 @@
 [{
 
-    "name": "The Wayward Sampler",
+    "name": "The Bonnie Sampler",
     "desc": "Fried mozzarella wedges, tater tots, and buffalo chicken drumsticks. Served with warm marinara, ranch dressing, and celery sticks.",
     "imageSrc":"https://img.trycaviar.com/ewitVXCFdZuPks3i2yO80sRyOCo=/700x466/https://s3.amazonaws.com/trycaviar.com/offers/56/2053.jpg",
     "price":"11.50"
@@ -25,7 +25,7 @@
   },
   {
     "name": "Back-To-Basics Breakfast",
-    "desc": "Wayward’s signature scrambled tofu, hashbrowns, toast, and steamed greens. Classic!",
+    "desc": "Bonnie’s signature scrambled tofu, hashbrowns, toast, and steamed greens. Classic!",
     "imageSrc": "https://img.trycaviar.com/bJd2uCG0RJHtvJIuw4HtlIGpEq4=/700x466/https://s3.amazonaws.com/trycaviar.com/offers/56/2023.jpg",
     "price":"10.00"
   },
@@ -45,7 +45,7 @@
   },
 
   {
-    "name": "McWayward",
+    "name": "McBonnie",
     "desc": "A toasted sourdough English muffin with grilled ham, cheddar cheese, mayo, and an “eggy” omelet round. Served with hashbrowns.",
     "imageSrc": "https://img.trycaviar.com/c5m2E151wPqqAoO0RCRufNSX6c0=/700x466/https://s3.amazonaws.com/trycaviar.com/offers/56/2026.jpg",
     "price":"9.25"
