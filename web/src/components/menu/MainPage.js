@@ -34,9 +34,10 @@ class MenuMain extends Component {
   currentTotal: 10,
   isCheckoutPage: false,
   isConfirmationPage: false,
-  user: {cardNumber: '',expiry: '', cvc:''},
   userInfo: {},
-  urlDomain: 'http://localhost:3300/'
+  user: {cardNumber: '',expiry: '', cvc:''},
+  urlDomain: 'http://localhost:3300/',
+  confirmationNumber: null
 
 }
 
@@ -60,6 +61,7 @@ componentDidMount() {
        console.log(data);
        if(data&&data.length > 0){
          self.setState({userInfo: data[0] })
+         console.log("userinfo",self.state)
        }
        //console.log("eva: data" ,data);
      });
@@ -148,6 +150,7 @@ handleSubmitCheckout = () => {
   //Post Request: {cardNumber: '',expiry: '', cvc:''}
   var order = {};
   order.user = this.state.userInfo;
+  order.user.UserId= this.state.userInfo.userId;
   if(order.user){
     order.user.cardNumber= this.state.user.cardNumber;
     order.user.expiry= this.state.user.expiry;
@@ -155,6 +158,7 @@ handleSubmitCheckout = () => {
   }
 
   order.items=this.state.selecItems;
+  console.log("order",order);
   this.submitOrdertoServer(order);
 
 }
@@ -169,7 +173,7 @@ submitOrdertoServer = (order) =>{
     success: function(data) {
       console.log(data);
       if(data){
-        self.setState({isConfirmationPage: true, selecItems: [], visible: false})
+        self.setState({isConfirmationPage: true, selecItems: [], visible: false, confirmationNumber: data})
       }
       //console.log("eva: data" ,data);
     },
@@ -181,7 +185,8 @@ submitOrdertoServer = (order) =>{
 render() {
   const { animation, dimmed, direction, visible, menuData, selecItems
     , currentTotal, isCheckoutPage
-    , isConfirmationPage, user, userInfo } = this.state
+    , isConfirmationPage, user, userInfo,
+  confirmationNumber } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
@@ -223,8 +228,15 @@ render() {
             {isCheckoutPage?
               isConfirmationPage?
               <Segment className='menu_card_parent'>
-                Thank you for ordering with us!
-                Your confirmation number is 2000
+                {confirmationNumber?
+                  <p>
+                    Thank you for ordering with us!
+                    Your confirmation number is {confirmationNumber}
+                  </p>:<p>
+                    Sorry, there is an error!
+                  </p>
+                }
+
               </Segment>
               :
               <Checkout
