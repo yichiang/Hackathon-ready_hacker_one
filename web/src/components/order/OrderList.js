@@ -19,28 +19,16 @@ class OrderList extends Component {
       this.getOrders();
   }
 
-  handleFulfilled = () => {
+  handleFulfilled = (OrderID) => {
     // POST to server to fulfill
+    var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
+    if(foundOrder && foundOrder.length > 0){
+      console.log("foundOrder", foundOrder)
+      foundOrder[0].StatusFullfilled = new Date();
+      foundOrder[0].StatusCancelled = null;
 
-    // Update state
-    let data = [
-      {
-        id: 1,
-        status: 'fulfilled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 2,
-        status: 'fulfilled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 3,
-        status: 'cancelled',
-        lastUpdated: Date.now()
-      }
-    ]
-    this.setState({orders: data })
+      this.putOrder(foundOrder[0]);
+    }
   }
 
   handleCancel = (OrderID) => {
@@ -48,27 +36,11 @@ class OrderList extends Component {
     var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
     if(foundOrder && foundOrder.length > 0){
       console.log("foundOrder", foundOrder)
+      foundOrder[0].StatusCancelled = new Date();
+      foundOrder[0].StatusFullfilled = null;
+
       this.putOrder(foundOrder[0]);
     }
-    // Update state
-    let data = [
-      {
-        id: 1,
-        status: 'cancelled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 2,
-        status: 'fulfilled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 3,
-        status: 'cancelled',
-        lastUpdated: Date.now()
-      }
-    ]
-    this.setState({orders: data })
   }
 
   handleStatus = (x) => {
@@ -114,6 +86,7 @@ class OrderList extends Component {
       success: function(data) {
         console.log(data);
         if(data){
+          self.getOrders();
         }
         //console.log("eva: data" ,data);
       },
