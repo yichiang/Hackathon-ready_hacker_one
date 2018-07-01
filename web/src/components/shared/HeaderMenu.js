@@ -23,7 +23,19 @@ class HeaderMenu extends Component {
 
 
             <Header size='huge' className='main_logo'>Bonnie's Famous Vegan Diner</Header>
+            {this.props.userInfo &&
+              <Menu.Menu position='right'>
+             <Menu.Item>
+               <Header size='huge' className='main_logo'>Hi {this.props.userInfo.displayName}</Header>
 
+             </Menu.Item>
+             <Menu.Item
+            name='view order history'
+            active={activeItem === 'orderhistory'}
+            onClick={this.handleItemClick}
+          />
+
+            </Menu.Menu>}
 
            </Menu>
     )

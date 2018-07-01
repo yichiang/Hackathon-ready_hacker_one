@@ -34,28 +34,47 @@ class MenuMain extends Component {
   currentTotal: 10,
   isCheckoutPage: false,
   isConfirmationPage: false,
-  user: {cardNumber: '',expiry: '', cvc:''}
+  user: {cardNumber: '',expiry: '', cvc:''},
+  userInfo: {}
 }
 
 componentDidMount() {
      console.log("componentDidMount")
      //this.getItems();
-     console.log(this.props)
+     this.getUserId();
+     console.log(this.props.match.params.id)
 
    }
-getItems = (lat, long) => {
-  let url = "http://localhost:3300/api/item/";
-  var self = this;
-  $.ajax({
-    url: url,
-    type: "GET",
 
-  }).done(function(data) {
-    console.log(data);
-    self.setState({menuData: data })
-    //console.log("eva: data" ,data);
-  });
-}
+   getUserId= () =>{
+     var userID = this.props.match.params.id || 1;
+     let url = "http://localhost:3300/api/user/"+userID;
+     var self = this;
+     $.ajax({
+       url: url,
+       type: "GET",
+
+     }).done(function(data) {
+       console.log(data);
+       if(data&&data.length > 0){
+         self.setState({userInfo: data[0] })
+       }
+       //console.log("eva: data" ,data);
+     });
+   }
+    getItems = (lat, long) => {
+      let url = "http://localhost:3300/api/item/";
+      var self = this;
+      $.ajax({
+        url: url,
+        type: "GET",
+
+      }).done(function(data) {
+        console.log(data);
+        self.setState({menuData: data })
+        //console.log("eva: data" ,data);
+      });
+    }
 
 
 handleAnimationChange = animation => () =>
@@ -128,14 +147,16 @@ handleSubmitCheckout=()=>{
   this.setState({isConfirmationPage: true, selecItems: [], visible: false})
 }
 render() {
-  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage,isConfirmationPage, user } = this.state
+  const { animation, dimmed, direction, visible, menuData, selecItems
+    , currentTotal, isCheckoutPage
+    , isConfirmationPage, user, userInfo } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
     <div>
       {/* <Button onClick={this.handleAnimationChange('push')}>Push</Button> */}
 
-      <HeaderMenu/>
+      <HeaderMenu userInfo={userInfo}/>
       <Sidebar.Pushable as={Segment}>
 
         {vertical ? null : (
