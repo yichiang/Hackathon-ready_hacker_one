@@ -24,7 +24,7 @@ function addNewOrder(user, items, callback){
     cmd = cmd.replace("{0}", "NULL");//DATETIME(2018-07-01 13:13:13)
     cmd = cmd.replace("{1}", "NULL");
     cmd = cmd.replace("{2}", "NULL");
-    cmd = cmd.replace("{3}", user.UserId);
+    cmd = cmd.replace("{3}", user.userId);
 
     console.log("Executing " + cmd);
     con.query(cmd, function(error, obj){
@@ -35,7 +35,7 @@ function addNewOrder(user, items, callback){
         callback(false);
       }
       console.log("1 record inserted, ID: " + obj.insertId);
-      var orderID = result.insertId;
+      var orderID = obj.insertId;
 
       addFoodItemsToOrder(orderID, user, items, function(result){
         con.end();
@@ -121,5 +121,6 @@ module.exports={
   addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
-  submitFoodOrder : submitFoodOrder
+  submitFoodOrder : submitFoodOrder, 
+  addNewOrder: addNewOrder
 };
