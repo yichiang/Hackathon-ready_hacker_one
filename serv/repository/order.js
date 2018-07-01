@@ -35,7 +35,7 @@ function addNewOrder(user, items, callback){
         callback(false);
       }
       console.log("1 record inserted, ID: " + obj.insertId);
-      var orderID = result.insertId;
+      var orderID = obj.insertId;
 
       addFoodItemsToOrder(orderID, user, items, function(result){
         con.end();
