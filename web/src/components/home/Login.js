@@ -63,11 +63,11 @@ class Login extends Component {
    this.setState({user: cUser}); }
 
  takePicture() {
-   this.camera.capture()
-   .then(blob => {
-     this.img.src = URL.createObjectURL(blob);
-     this.img.onload = () => { URL.revokeObjectURL(this.src); }
-   })
+   // this.camera.capture()
+   // .then(blob => {
+   //   this.img.src = URL.createObjectURL(blob);
+   //   this.img.onload = () => { URL.revokeObjectURL(this.src); }
+   // })
  }
 
  showManual() {
@@ -94,14 +94,14 @@ class Login extends Component {
        contentType: 'application/json',
        success: function (data) {
            console.log("login", data)
-           if(data){
+           if(data&&data.length > 0){
              self.props.history.push('/menu/'+data[0].userId);
            }else{
-             self.props.history.push('/menu');
+             self.props.history.push('/menu/'+ 1);
            }
        },
        error: function(){
-         self.props.history.push('/menu');
+         self.props.history.push('/menu/'+ 1);
        },
        data: JSON.stringify(cUser)
    });
