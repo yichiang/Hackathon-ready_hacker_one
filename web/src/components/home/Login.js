@@ -44,6 +44,8 @@ class Login extends Component {
   constructor(props) {
    super(props);
    this.takePicture = this.takePicture.bind(this);
+   this.handleUserNameChange = this.handleUserNameChange.bind(this);
+   this.handlePasswordChange = this.handlePasswordChange.bind(this);
    // this.state = {
    //  showManualLogin: false,
    //  message: 'Looking for your face...'
@@ -81,9 +83,10 @@ class Login extends Component {
  }
 
  loginUser = () => {
-   let url = "http://localhost:3300/api/lohin/";
+   let url = "http://localhost:3300/api/login/";
    var self = this;
    var cUser = this.state.user;
+   console.log("try to log in cUser", cUser);
    $.ajax({
        url: url,
        type: 'post',
@@ -92,13 +95,13 @@ class Login extends Component {
        success: function (data) {
            console.log("login", data)
            if(data){
-             this.props.history.push('/menu/'+data[0].UserID);
+             self.props.history.push('/menu/'+data[0].UserID);
            }else{
-             this.props.history.push('/menu');
+             self.props.history.push('/menu');
            }
        },
        error: function(){
-         this.props.history.push('/menu');
+         self.props.history.push('/menu');
        },
        data: JSON.stringify(cUser)
    });
