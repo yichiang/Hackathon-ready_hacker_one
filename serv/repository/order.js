@@ -62,7 +62,7 @@ function addFoodItemsToOrder(orderID, user, items, callback){
       if (err) throw err;
       console.log("Number of records inserted: " + result.affectedRows);
       con.end();
-      callback(result);
+      callback(result.insertId);
     });
 });
 
@@ -121,6 +121,6 @@ module.exports={
   addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
-  submitFoodOrder : submitFoodOrder, 
+  submitFoodOrder : submitFoodOrder,
   addNewOrder: addNewOrder
 };
