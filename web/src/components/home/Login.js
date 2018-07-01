@@ -95,7 +95,7 @@ class Login extends Component {
        success: function (data) {
            console.log("login", data)
            if(data){
-             self.props.history.push('/menu/'+data[0].UserID);
+             self.props.history.push('/menu/'+data[0].userId);
            }else{
              self.props.history.push('/menu');
            }
