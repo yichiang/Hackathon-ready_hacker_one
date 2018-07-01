@@ -43,3 +43,15 @@ html .ui.padded.segment {
 html img {
   box-shadow: black 0 0 100px;
 }
+
+.main_logo{
+  padding-left: 20px !important;
+  align-items: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 !important;
+}
+
+.main_menu_header{
+  margin: 0 !important;
+}
