@@ -30,8 +30,15 @@ var getAllOrders = function(callback){
 });
 };
 
+var getOrderedItemsCSV = function(callback){
+  orderRepo.getOrderedItems(function(data){
+    console.log(data);
+  });
+};
+
 module.exports = {
     addNewOrder: addNewOrder,
     updateOrder: updateOrder,
-    getAllOrders: getAllOrders
+    getAllOrders: getAllOrders,
+    getOrderedItemsCSV: getOrderedItemsCSV
 };
