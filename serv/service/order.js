@@ -37,7 +37,7 @@ var getOrderedItemsCSV = function(callback){
       var row = data[i].orderId + "," + data[i].name + "," + data[i].imgUrl + "," + data[i].placed + "," + data[i].fulfilled + "," + data[i].canceled + "\r\n";
       csv += row;
     }
-    console.log(csv);
+    callback(csv);
   });
 };
 
