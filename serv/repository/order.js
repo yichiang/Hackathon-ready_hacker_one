@@ -112,7 +112,7 @@ function addFoodItemToOrder(userID,orderID,foodID,callback){
 };
 
 
-function getOrders(callback){
+function getAllOrders(callback){
   signIn.signIn(function(con){
     var cmd = "SELECT * FROM Order_main";
     con.query(cmd, function(error, data){
@@ -132,6 +132,6 @@ module.exports={
   addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
-  getOrders: getOrders,
+  getAllOrders: getAllOrders,
   submitFoodOrder : submitFoodOrder
 };
