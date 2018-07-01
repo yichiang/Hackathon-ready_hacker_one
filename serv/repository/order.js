@@ -111,7 +111,6 @@ function addFoodItemToOrder(userID,orderID,foodID,callback){
 
 };
 
-
 function getAllOrders(callback){
   signIn.signIn(function(con){
     var cmd = "SELECT * FROM Order_main";
@@ -123,9 +122,16 @@ function getAllOrders(callback){
   });
 };
 
-//SubmitFoodOrder(OrderID)
-function submitFoodOrder(orderID){
-
+function updateOrder(order, callback){
+  signIn.signIn(function(con){
+    var cmd = "UPDATE order SET StatusFullfilled=" + order.StatusFullfilled + ", StatusCancelled=" + order.StatusCancelled + " WHERE OrderID=" + order.OrderID;
+    console.log("Executing: " + cmd);
+    con.query(cmd, function(error, data){
+      if(error) throw error;
+      con.end();
+      callback(true);
+    });
+  });
 };
 
 module.exports={
@@ -133,5 +139,5 @@ module.exports={
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
   getAllOrders: getAllOrders,
-  submitFoodOrder : submitFoodOrder
+  updateOrder: updateOrder
 };
