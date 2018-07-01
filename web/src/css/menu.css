@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   background-color: #F1EEEE !important;
+  min-height: 80vh;
 }
 .menu_card {
   height: 400px !important;
@@ -30,4 +31,8 @@ max-width: calc(100% - 300px);
 }
 .total_dollar{
 
+}
+
+.price_meta{
+  text-align: right;
 }

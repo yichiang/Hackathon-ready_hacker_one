@@ -28,11 +28,11 @@
 }
 
 .main_logo{
+  padding-left: 20px !important;
   align-items: center !important;
   display: flex !important;
   justify-content: center !important;
   margin: 0 !important;
-  padding-left: 20px;
 }
 
 .main_menu_header{

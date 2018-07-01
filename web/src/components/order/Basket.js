@@ -7,7 +7,7 @@ class Basket extends Component {
 
 
   render() {
-    const { selecItems, currentTotal } = this.props;
+    const { selecItems, currentTotal, handleSubmitReview, isCheckoutPage } = this.props;
 
     return (
         <div>
@@ -61,12 +61,14 @@ class Basket extends Component {
               <div>
                 Total: <span className='total_dollar'>$ {currentTotal}</span>
               </div>
-              <Button animated floated='right'>
-                  <Button.Content visible>Place order</Button.Content>
-                  <Button.Content hidden>
-                      <Icon name='right arrow' />
-                  </Button.Content>
-              </Button>
+              {!isCheckoutPage&&
+                <Button animated floated='right' onClick={handleSubmitReview}>
+                    <Button.Content visible>Place order</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='right arrow' />
+                    </Button.Content>
+                </Button>
+              }
           </div>
         </div>
     );

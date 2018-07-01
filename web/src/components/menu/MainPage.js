@@ -18,6 +18,7 @@ import {
   Menu,
   Segment,
   Sidebar,
+  Form,
 } from 'semantic-ui-react'
 
 
@@ -31,7 +32,7 @@ class MenuMain extends Component {
   menuData: menuData_json,
   selecItems:[],
   currentTotal: 10,
-
+  isCheckoutPage: false,
 }
 
 handleAnimationChange = animation => () =>
@@ -69,8 +70,11 @@ calcTotal = (items) =>{
   }
   this.setState({currentTotal: total})
 }
+handleSubmitReview = () => {
+  this.setState({isCheckoutPage: !this.state.isCheckoutPage})
+}
 render() {
-  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal } = this.state
+  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
@@ -93,28 +97,59 @@ render() {
             width='wide'
           >
 
-            <Basket selecItems={selecItems} currentTotal={currentTotal}/>
+            <Basket selecItems={selecItems}
+              currentTotal={currentTotal}
+              handleSubmitReview={this.handleSubmitReview}
+              isCheckoutPage={isCheckoutPage}
+            />
           </Sidebar>
         )}
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
+
           <Segment basic className={visible? 'minWidth':''}>
             <Header as='h2'>
               <Icon name='food'/>
               Order #20092
             </Header>
-            <Segment className='menu_card_parent'>
-              {menuData.map((x, i)=>
-                {return (
-                  <div>
-                    <MenuCard menu={x} handleChangeOrder={this.handleChangeOrder} itemIndex={i} selecItems={selecItems}></MenuCard>
-                  </div>
-                )}
-              )
 
-              }
+            {isCheckoutPage?
+              <Segment className='menu_card_parent'>
+              Checkout
+              <Form>
+                <Form.Field>
+                  <label>Credit Card</label>
+                  <input placeholder='First Name' />
+                </Form.Field>
+                <Form.Field>
+                  <label>Last Name</label>
+                  <input placeholder='Last Name' />
+                </Form.Field>
+                <Form.Field>
+                  <Checkbox label='I agree to the Terms and Conditions' />
+                </Form.Field>
+                <Button type='submit'>Submit</Button>
+              </Form>
 
-            </Segment>
+              </Segment>:
+              <Segment className='menu_card_parent'>
+                {menuData.map((x, i)=>
+                  {return (
+                    <div>
+                      <MenuCard menu={x}
+                        handleChangeOrder={this.handleChangeOrder}
+                        itemIndex={i} selecItems={selecItems}></MenuCard>
+                    </div>
+                  )}
+                )
+
+                }
+
+              </Segment>
+
+
+            }
+
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
