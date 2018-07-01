@@ -96,6 +96,19 @@ class OrderList extends Component {
     });
   }
 
+  handleExport = () => {
+    let url = this.state.urlDomain+'api/order/csv';
+    var self = this;
+    $.ajax({
+      url: url,
+      type: "get",
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(){
+      }
+    });
+  }
 
   render() {
     const table = (filter) => <Table basic='very' celled>
@@ -159,7 +172,7 @@ class OrderList extends Component {
                 Orders
               </h1>
               <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-              <Button color='facebook' style={style.export}>
+              <Button color='facebook' style={style.export} onClick={this.handleExport}>
                 <Icon name='file excel' /> Export
               </Button>
           </Segment>
