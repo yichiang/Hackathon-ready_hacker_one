@@ -48,6 +48,7 @@ class OrderList extends Component {
     var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
     if(foundOrder && foundOrder.length > 0){
       console.log("foundOrder", foundOrder)
+      this.putOrder(foundOrder[0]);
     }
     // Update state
     let data = [
@@ -103,7 +104,7 @@ class OrderList extends Component {
 
 
   putOrder = (order) => {
-    let url = this.state.urlDomain+'api/orders/updateStatus';
+    let url = this.state.urlDomain+'api/order/update';
     var self = this;
     $.ajax({
       url: url,
