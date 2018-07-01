@@ -19,6 +19,23 @@ var singinuser = function(user, callback){
   });
 };
 
+var getUserById = function(userId, callback){
+  signin.signIn(function(con){
+    var cmd = "SELECT * FROM hackerOneFoodService.user WHERE userId=" + userId;
+   
+    console.log("cmd", cmd)
+    con.query(cmd, function(err, data){
+      if(err){
+        console.log(err);
+        callback(err);
+      }
+      con.end();
+      callback(data);
+    });
+  });
+};
+
 module.exports = {
-  singinuser: singinuser
+  singinuser: singinuser,
+  getUserById: getUserById
 };

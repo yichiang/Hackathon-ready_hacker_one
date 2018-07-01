@@ -14,7 +14,7 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(jsonParser);
 
-// POST /login gets urlencoded bodies
+// POST /api/login gets urlencoded bodies
 app.post('/api/login', urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(req.body)
@@ -22,6 +22,22 @@ app.post('/api/login', urlencodedParser, function (req, res) {
   userService.singinuser(req.body, function(data){
     res.json(data);
   });
+})
+
+// get /api/user/:id gets urlencoded bodies
+app.get('/api/user/:userId', urlencodedParser, function (req, res) {
+  if (!req.params) return res.sendStatus(400)
+  console.log(req.params)
+  if(req.params.userId){
+    // res.send('welcome, ' + req.body.username)
+    userService.getUserById(req.params.userId, function(data){
+      res.json(data);
+    });
+    
+  }else{
+    res.json([]);
+  }
+
 })
 
 
