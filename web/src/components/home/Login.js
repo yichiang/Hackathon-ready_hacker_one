@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import React, { Component } from 'react';
 import './../../App.css';
 import { Button, Checkbox, Form, Segment, Divider, Header, Image, Grid } from 'semantic-ui-react'
@@ -33,14 +34,33 @@ const style = {
 };
 
 class Login extends Component {
+  state = {
+  //ususally you use User object
+  user: {username: '', password: ''},
+  showManualLogin: false,
+  message: 'Looking for your face...'
+}
+
   constructor(props) {
    super(props);
    this.takePicture = this.takePicture.bind(this);
-   this.state = {
-    showManualLogin: false,
-    message: 'Looking for your face...'
-   }
+   this.handleUserNameChange = this.handleUserNameChange.bind(this);
+   this.handlePasswordChange = this.handlePasswordChange.bind(this);
+   // this.state = {
+   //  showManualLogin: false,
+   //  message: 'Looking for your face...'
+   // }
  }
+
+ handleUserNameChange(event) {
+   var cUser = this.state.user;
+   cUser.username = event.target.value;
+   this.setState({user: cUser});
+ }
+ handlePasswordChange(event) {
+   var cUser = this.state.user;
+   cUser.password = event.target.value;
+   this.setState({user: cUser}); }
 
  takePicture() {
    this.camera.capture()
@@ -57,7 +77,34 @@ class Login extends Component {
  }
 
  showMenu() {
-  this.props.history.push('/menu');
+   //SINGIN
+  this.loginUser();
+  // this.props.history.push('/menu');
+ }
+
+ loginUser = () => {
+   let url = "http://localhost:3300/api/login/";
+   var self = this;
+   var cUser = this.state.user;
+   console.log("try to log in cUser", cUser);
+   $.ajax({
+       url: url,
+       type: 'post',
+       dataType: 'json',
+       contentType: 'application/json',
+       success: function (data) {
+           console.log("login", data)
+           if(data){
+             self.props.history.push('/menu/'+data[0].UserID);
+           }else{
+             self.props.history.push('/menu');
+           }
+       },
+       error: function(){
+         self.props.history.push('/menu');
+       },
+       data: JSON.stringify(cUser)
+   });
  }
 
  componentDidMount() {
@@ -85,34 +132,34 @@ class Login extends Component {
                         <div style={style.captureContainer} onClick={this.takePicture}>
                           <div style={style.captureButton} />
                         </div>
-                    </Camera>                
+                    </Camera>
                      {/* <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='medium centered' circular /> */}
                     <div className='instruction' onClick={() => this.showMenu()}>{this.state.message}</div>
                     <Divider horizontal>Or</Divider>
                     <div class="ui one column stackable center aligned page grid">
                       <div class="column twelve wide">
-                      {this.state.showManualLogin 
+                      {this.state.showManualLogin
                       ? (
                       <Form>
                         <Form.Field>
-                          <label>First Name</label>
-                          <input placeholder='First Name' />
+                          <label>Username</label>
+                          <input placeholder='Username' onChange={this.handleUserNameChange}/>
                         </Form.Field>
                         <Form.Field>
-                          <label>Last Name</label>
-                          <input placeholder='Last Name' />
+                          <label>Password</label>
+                          <input placeholder='Password' onChange={this.handlePasswordChange}/>
                         </Form.Field>
                         <Button type='submit' onClick={() => this.showMenu()}>Submit</Button>
                         </Form>
-                      ) 
+                      )
                       : (
                         <Button type='submit' onClick={() => this.showManual()}>Sign in Manually</Button>
                       )}
                       </div>
-                    </div> 
+                    </div>
                 </div>
         </Segment>
-            
+
         </Grid.Column>
         </Grid>
 
