@@ -21,7 +21,7 @@ function addNewOrder(user, items, callback){
 
   signIn.signIn(function(con){
     var cmd = "INSERT INTO Order_main (StatusNew, StatusFullfilled, StatusCancelled, UserID) VALUES ({0}, {1}, {2}, {3})";
-    cmd = cmd.replace("{0}", "NULL");//DATETIME(2018-07-01 13:13:13)
+    cmd = cmd.replace("{0}", con.escape(new Date()));//DATETIME(2018-07-01 13:13:13)
     cmd = cmd.replace("{1}", "NULL");
     cmd = cmd.replace("{2}", "NULL");
     cmd = cmd.replace("{3}", user.userId);
