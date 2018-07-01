@@ -54,7 +54,7 @@ function addFoodItemsToOrder(orderID, user, items, callback){
 
     for (var i = 0; i < items.length; i++) {
 
-      var newValue = [user.UserID, orderID, items[i].ItemID, items[i].qty, items[i].placed, "NULL", "NULL"];
+      var newValue = [user.userId, orderID, items[i].itemId, items[i].order, items[i].placed, "NULL", "NULL"];
       values.push(newValue);
     }
     console.log("Executing: " + sql);
