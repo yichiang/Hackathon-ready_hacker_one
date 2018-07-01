@@ -112,6 +112,17 @@ function addFoodItemToOrder(userID,orderID,foodID,callback){
 };
 
 
+function getOrders(callback){
+  signIn.signIn(function(con){
+    var cmd = "SELECT * FROM Order_main";
+    con.query(cmd, function(error, data){
+      if(error) throw error;
+      con.end();
+      callback(data);
+    });
+  });
+};
+
 //SubmitFoodOrder(OrderID)
 function submitFoodOrder(orderID){
 
@@ -121,6 +132,6 @@ module.exports={
   addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
-  submitFoodOrder : submitFoodOrder,
-  addNewOrder: addNewOrder
+  getOrders: getOrders,
+  submitFoodOrder : submitFoodOrder
 };
