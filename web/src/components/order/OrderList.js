@@ -43,9 +43,12 @@ class OrderList extends Component {
     this.setState({orders: data })
   }
 
-  handleCancel = () => {
+  handleCancel = (OrderID) => {
     // POST to server to cancel
-
+    var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
+    if(foundOrder && foundOrder.length > 0){
+      console.log("foundOrder", foundOrder)
+    }
     // Update state
     let data = [
       {
@@ -67,27 +70,20 @@ class OrderList extends Component {
     this.setState({orders: data })
   }
 
-  // getOrders = () => {
-  //
-  //   let data = [
-  //     {
-  //       id: 1,
-  //       status: 'processing',
-  //       lastUpdated: Date.now()
-  //     },
-  //     {
-  //       id: 2,
-  //       status: 'fulfilled',
-  //       lastUpdated: Date.now()
-  //     },
-  //     {
-  //       id: 3,
-  //       status: 'cancelled',
-  //       lastUpdated: Date.now()
-  //     }
-  //   ]
-  //   this.setState({orders: data })
-  // }
+  handleStatus = (x) => {
+    if(x.StatusFullfilled){
+      x.status = "fulfilled";
+      x.lastUpdated  = x.StatusFullfilled;
+    } else if(x.StatusCancelled){
+      x.status = "cancelled";
+      x.lastUpdated  = x.StatusCancelled;
+    }else{
+      x.status = "processing";
+      x.lastUpdated  = x.StatusNew;
+    }
+    return x;
+
+  }
   getOrders = () => {
     let url = this.state.urlDomain+'api/orders/';
     var self = this;
@@ -98,23 +94,31 @@ class OrderList extends Component {
     }).done(function(data) {
       console.log(data);
       if(data&&data.length > 0){
-        data = data.map(x=> {
-          if(x.StatusFullfilled){
-            x.status = "fulfilled";
-            x.lastUpdated  = x.StatusFullfilled;
-          } else if(x.StatusCancelled){
-            x.status = "cancelled";
-            x.lastUpdated  = x.StatusCancelled;
-          }else{
-            x.status = "processing";
-            x.lastUpdated  = x.StatusNew;
-          }
-
-          return x;
-        })
+        data = data.map(x=> self.handleStatus(x))
         self.setState({orders: data })
       }
       //console.log("eva: data" ,data);
+    });
+  }
+
+
+  putOrder = (order) => {
+    let url = this.state.urlDomain+'api/orders/updateStatus';
+    var self = this;
+    $.ajax({
+      url: url,
+      type: "post",
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(data) {
+        console.log(data);
+        if(data){
+        }
+        //console.log("eva: data" ,data);
+      },
+      error: function(){
+      },
+      data: JSON.stringify(order)
     });
   }
 
@@ -156,8 +160,8 @@ class OrderList extends Component {
                 <Table.Cell>{status}</Table.Cell>
                 <Table.Cell>{new Date(order.lastUpdated).toLocaleString()}</Table.Cell>
                 <Table.Cell>
-                  <Button negative disabled={disabled} onClick={this.handleCancel}>Cancel</Button>
-                  <Button positive disabled={disabled} onClick={this.handleFulfilled}>Fulfill</Button>
+                  <Button negative disabled={disabled} onClick={() => this.handleCancel(order.OrderID)}>Cancel</Button>
+                  <Button positive disabled={disabled} onClick={() => this.handleFulfilled(order.OrderID)}>Fulfill</Button>
                 </Table.Cell>
               </Table.Row>
             );
