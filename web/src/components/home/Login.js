@@ -110,9 +110,14 @@ class Login extends Component {
  componentDidMount() {
    setTimeout(() => {
       this.setState({
-        message: 'Joseph, smile to get started :)'
+        message: 'Identifying...'
       })
    }, 5000);
+   setTimeout(() => {
+    this.setState({
+      message: 'Joseph, smile to get started :)'
+    })
+ }, 10000);
  }
 
   render() {
