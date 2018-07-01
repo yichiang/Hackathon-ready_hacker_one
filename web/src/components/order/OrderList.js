@@ -170,10 +170,19 @@ class OrderList extends Component {
                 <Icon name='shopping food'></Icon>
                 Orders
               </h1>
-              <Tab menu={{ secondary: true, pointing: true }} panes={panes} />              
+              <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+              <Button color='facebook' style={style.export}>
+                <Icon name='file excel' /> Export
+              </Button>        
           </Segment>
         </div>
     );
+  }
+}
+
+const style = {
+  export: {
+    marginTop: '20px'
   }
 }
 
