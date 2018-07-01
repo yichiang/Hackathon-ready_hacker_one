@@ -35,7 +35,9 @@ class MenuMain extends Component {
   isCheckoutPage: false,
   isConfirmationPage: false,
   user: {cardNumber: '',expiry: '', cvc:''},
-  userInfo: {}
+  userInfo: {},
+  urlDomain: 'http://localhost:3300/'
+
 }
 
 componentDidMount() {
@@ -46,9 +48,9 @@ componentDidMount() {
 
    }
 
-   getUserId= () =>{
+   getUserId = () =>{
      var userID = this.props.match.params.id || 1;
-     let url = "http://localhost:3300/api/user/"+userID;
+     let url = this.state.urlDomain+'api/user/'+userID;
      var self = this;
      $.ajax({
        url: url,
@@ -63,7 +65,7 @@ componentDidMount() {
      });
    }
     getItems = (lat, long) => {
-      let url = "http://localhost:3300/api/item/";
+      let url = this.state.urlDomain+"/api/item/";
       var self = this;
       $.ajax({
         url: url,
@@ -141,10 +143,40 @@ handleCardCVCChange = (e) => {
 
 }
 
-handleSubmitCheckout=()=>{
-  //Post Request
+handleSubmitCheckout = () => {
+  console.log("submit order", this.state)
+  //Post Request: {cardNumber: '',expiry: '', cvc:''}
+  var order = {};
+  order.user = this.state.userInfo;
+  if(order.user){
+    order.user.cardNumber= this.state.user.cardNumber;
+    order.user.expiry= this.state.user.expiry;
+    order.user.cvc= this.state.user.cvc;
+  }
 
-  this.setState({isConfirmationPage: true, selecItems: [], visible: false})
+  order.items=this.state.selecItems;
+  this.submitOrdertoServer(order);
+
+}
+submitOrdertoServer = (order) =>{
+  let url = this.state.urlDomain+'api/order/create';
+  var self = this;
+  $.ajax({
+    url: url,
+    type: "post",
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function(data) {
+      console.log(data);
+      if(data){
+        self.setState({isConfirmationPage: true, selecItems: [], visible: false})
+      }
+      //console.log("eva: data" ,data);
+    },
+    error: function(){
+    },
+    data: JSON.stringify(order)
+  });
 }
 render() {
   const { animation, dimmed, direction, visible, menuData, selecItems

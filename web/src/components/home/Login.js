@@ -94,7 +94,7 @@ class Login extends Component {
        contentType: 'application/json',
        success: function (data) {
            console.log("login", data)
-           if(data&&data.length > 0){
+           if(data && data.length > 0){
              self.props.history.push('/menu/'+data[0].userId);
            }else{
              self.props.history.push('/menu/'+ 1);
