@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  text-shadow: white 0 0 10px !important;
 }
 
 .App-logo {
@@ -25,6 +26,22 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+html body { 
+  background-image: url('https://images.unsplash.com/photo-1484156818044-c040038b0719?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ca0f71c2c3088b972856d3f80405a386&auto=format&fit=crop&w=1950&q=80') ;
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+}
+
+html .ui.padded.segment {
+  padding: 2em;
+}
+
+html img {
+  box-shadow: black 0 0 100px;
 }
 
 .main_logo{

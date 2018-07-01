@@ -4,6 +4,24 @@
     margin: 20px auto !important;
 }
 
+.login-container {
+    margin-top: 10%;
+}
+
+.welcome {
+    font-size: 80px !important;
+    color: white !important;
+    text-shadow: white 0 0 10px;
+    text-align: center !important;
+    padding: 60px;
+}
+
+.instruction {
+    padding: 20px;
+    font-size: 32px !important;
+    text-align: center !important;
+}
+
 @media only screen and (max-width: 600px) {
   .pl_login_form {
       max-width: 100vw;
