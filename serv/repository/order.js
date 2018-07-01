@@ -16,48 +16,54 @@ function getOrderByID(orderID,callback){
 
 // AddFoodItemToOrder(IDorder,IDfood)
 
-function addNewOrder(user, items){
+function addNewOrder(user, items, callback){
   var result = true;
 
   signIn.signIn(function(con){
     var cmd = "INSERT INTO Order_main (StatusNew, StatusFullfilled, StatusCancelled, UserID) VALUES ({0}, {1}, {2}, {3})";
-    cmd = cmd.replace("{0}", new Date());
+    cmd = cmd.replace("{0}", "NULL");//DATETIME(2018-07-01 13:13:13)
     cmd = cmd.replace("{1}", "NULL");
     cmd = cmd.replace("{2}", "NULL");
     cmd = cmd.replace("{3}", user.UserId);
 
     console.log("Executing " + cmd);
     con.query(cmd, function(error, obj){
+      if(error){
+        console.log(error);
+        result = false;
+        con.end();
+        callback(false);
+      }
       console.log("1 record inserted, ID: " + result.insertId);
       var orderID = result.insertId;
-      addFoodItemToOrder(user.UserID, orderID, )
-      if(err){
-        console.log(err);
-        result = false;
-      }
-      con.end();
-      callback(obj);
+
+      addFoodItemsToOrder(orderID, user, items, function(result){
+        con.end();
+        callback(result);
+      });
     });
   });
 }
 
 function addFoodItemsToOrder(orderID, user, items, callback){
-  signIn.signIn(function(con){
 
-    con.connect(function(err) {
+  signIn.signIn(function(con) {
+
+    var sql = "INSERT INTO order_tb (userId,orderId,itemId,qty,placed,fulfilled,canceled) VALUES ?";
+    var values = [];
+
+    for (var i = 0; i < items.length; i++) {
+
+      var newValue = [user.UserID, orderID, items[i].ItemID, items[i].qty, items[i].placed, "NULL", "NULL"];
+      values.push(newValue);
+    }
+    console.log("Executing: " + sql);
+    con.query(sql, [values], function (err, result) {
       if (err) throw err;
-      console.log("Connected!");
-      var sql = "INSERT INTO order_tb (userId,orderId,itemId,qty,placed,fulfilled,canceled) VALUES ?";
-      var values = [];
-      for (var i = 0; i < items.length; i++) {
-        var newValue = [user.UserID, orderID, items[i].ItemID, items[i].qty, items[i].placed, "NULL", "NULL"];
-        values.append(newValue);
-      }
-      con.query(sql, [values], function (err, result) {
-        if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
-      });
-  });
+      console.log("Number of records inserted: " + result.affectedRows);
+      con.end();
+      callback(result);
+    });
 });
 
 }
@@ -112,6 +118,7 @@ function submitFoodOrder(orderID){
 };
 
 module.exports={
+  addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
   submitFoodOrder : submitFoodOrder, 

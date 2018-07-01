@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Image, Table, Button, Icon, Segment } from 'semantic-ui-react'
+import { Header, Image, Table, Button, Icon, Segment, Tab } from 'semantic-ui-react'
 import HeaderMenu from '../shared/HeaderMenu';
 
 class OrderList extends Component {
@@ -110,6 +110,57 @@ class OrderList extends Component {
   }
 
   render() {
+    const table = (filter) => <Table basic='very' celled>
+        <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Order ID</Table.HeaderCell>
+            <Table.HeaderCell>Status</Table.HeaderCell>
+            <Table.HeaderCell>Last updated</Table.HeaderCell>
+            <Table.HeaderCell>Action</Table.HeaderCell>
+        </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.orders
+            .filter(order => filter === 'all' || order.status === filter)
+            .map(order => {
+            let polar = {};
+            let status = <span><Icon name='uniregistry' /> Processing</span>;
+            let disabled = false;
+
+            if (order.status === 'fulfilled') {
+              polar.positive = true;
+              disabled = true;
+              status = <span><Icon name='checkmark' /> Fulfilled</span>;
+            }
+
+            if (order.status === 'cancelled') {
+              polar.negative = true;
+              disabled = true;
+              status = <span><Icon name='close' /> Cancelled</span>;
+            }
+
+            return (
+              <Table.Row {...polar}>
+                <Table.Cell>{order.id}</Table.Cell>
+                <Table.Cell>{status}</Table.Cell>
+                <Table.Cell>{new Date(order.lastUpdated).toLocaleString()}</Table.Cell>
+                <Table.Cell>
+                  <Button negative disabled={disabled} onClick={this.handleCancel}>Cancel</Button>
+                  <Button positive disabled={disabled} onClick={this.handleFulfilled}>Fulfill</Button>
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+    </Table>;
+
+    const panes = [
+      { menuItem: 'All', render: () => <Tab.Pane attached={false}>{table('all')}</Tab.Pane> },
+      { menuItem: 'Active', render: () => <Tab.Pane attached={false}>{table('processing')}</Tab.Pane> },
+      { menuItem: 'Cancelled', render: () => <Tab.Pane attached={false}>{table('cancelled')}</Tab.Pane> },
+      { menuItem: 'Fulfilled', render: () => <Tab.Pane attached={false}>{table('fulfilled')}</Tab.Pane> },
+    ]
 
     return (
         <div>
@@ -119,49 +170,8 @@ class OrderList extends Component {
                 <Icon name='shopping food'></Icon>
                 Orders
               </h1>
-              <Table basic='very' celled>
-                  <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Order ID</Table.HeaderCell>
-                      <Table.HeaderCell>Status</Table.HeaderCell>
-                      <Table.HeaderCell>Last updated</Table.HeaderCell>
-                      <Table.HeaderCell>Action</Table.HeaderCell>
-                  </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>
-                    {this.state.orders.map(order => {
-                      let polar = {};
-                      let status = null;
-                      let disabled = false;
-
-                      if (order.status === 'fulfilled') {
-                        polar.positive = true;
-                        disabled = true;
-                        status = <span><Icon name='checkmark' /> Fulfilled</span>;
-                      }
-
-                      if (order.status === 'cancelled') {
-                        polar.negative = true;
-                        disabled = true;
-                        status = <span><Icon name='close' /> Cancelled</span>;
-                      }
-
-                      return (
-                        <Table.Row {...polar}>
-                          <Table.Cell>{order.id}</Table.Cell>
-                          <Table.Cell>{status}</Table.Cell>
-                          <Table.Cell>{new Date(order.lastUpdated).toLocaleString()}</Table.Cell>
-                          <Table.Cell>
-                            <Button negative disabled={disabled} onClick={this.handleCancel}>Cancel</Button>
-                            <Button positive disabled={disabled} onClick={this.handleFulfilled}>Fulfill</Button>
-                          </Table.Cell>
-                        </Table.Row>
-                      );
-                    })}
-                  </Table.Body>
-              </Table>
-            </Segment>
+              <Tab menu={{ secondary: true, pointing: true }} panes={panes} />              
+          </Segment>
         </div>
     );
   }
