@@ -25,13 +25,20 @@ app.post('/api/login', urlencodedParser, function (req, res) {
   });
 })
 
-// POST /api/login gets urlencoded bodies
+// POST /api/order/create a orders
 app.post('/api/order/create', urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(req.body)
   // res.send('welcome, ' + req.body.username)
   orderService.addNewOrder(req.body.user, req.body.items, function(data){
     res.json(data);
+  });
+})
+
+//GET /api/orders
+app.get('/api/orders', function (req, res, next) {
+  orderService.getAllOrders(function(orders){
+    res.json(orders);
   });
 })
 
@@ -58,6 +65,7 @@ app.get('/api/item', function (req, res, next) {
     res.json(items);
   });
 })
+
 
 app.listen(3300, function () {
   console.log('CORS-enabled web server listening on port 3300')
