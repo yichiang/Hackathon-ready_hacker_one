@@ -40,7 +40,7 @@ app.post('/api/order/update', urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(req.body)
   // res.send('welcome, ' + req.body.username)
-  orderService.updateOrder(req.body.user, req.body.items, function(data){
+  orderService.updateOrder(req.body, function(data){
     res.json(data);
   });
 })
@@ -52,6 +52,13 @@ app.get('/api/orders', function (req, res, next) {
   });
 })
 
+//GET /api/order/csv
+app.get('/api/order/csv', function (req, res, next) {
+  orderService.getOrderedItemsCSV(function(csv){
+    console.log(csv);
+    res.json(csv);
+  });
+})
 
 // get /api/user/:id gets urlencoded bodies
 app.get('/api/user/:userId', urlencodedParser, function (req, res) {
