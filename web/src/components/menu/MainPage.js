@@ -230,15 +230,24 @@ render() {
             {isCheckoutPage?
               isConfirmationPage?
               <Segment className='menu_card_parent'>
-                {confirmationNumber?
-                  <p>
-                    Thank you for ordering with us!
-                    Your confirmation number is {confirmationNumber}
-                  </p>:<p>
-                    Sorry, there is an error!
-                  </p>
-                }
-
+                <div className='confirmation'>
+                  {confirmationNumber?                   
+                    <div>                    
+                      <Icon name='checkmark' color='green' size='massive' />
+                      <h1>Thanks {userInfo.displayName}!</h1>
+                      <div>
+                        Your order has been recieved!
+                        Your confirmation number is {confirmationNumber}
+                      </div>                      
+                      <div className='wait-time'>
+                        Expected wait time:
+                      </div>
+                      <h1>10 min</h1>
+                    </div>:<p>
+                      Sorry, there is an error!
+                    </p>
+                  }
+                </div>
               </Segment>
               :
               <Checkout
