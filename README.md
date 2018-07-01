@@ -1,4 +1,5 @@
-# <p align="center">Ready Hacker One Web Service! 
+# <p align="center">Ready Hacker One Web Service! </p>
+<p align="center">
 <img src="https://octodex.github.com/images/stormtroopocat.jpg" width="410"></p>
 ## <p align="center">Created by: Yi, Andy, Joe, & Claire </p>
 ### <p align="center">Ready Hacker One Hackathon by Exsilo in Redmond, WA (June 30th, 2018-July 1st, 2018)</p>
