@@ -6,6 +6,8 @@ import menuData_json from './../../data/menu.json';
 import PropTypes from 'prop-types';
 import MenuCard from './MenuCard';
 import Basket from '../order/Basket';
+import HeaderMenu from '../shared/HeaderMenu';
+
 import {
   Button,
   Checkbox,
@@ -73,9 +75,9 @@ render() {
 
   return (
     <div>
-      <Button onClick={this.handleAnimationChange('push')}>Push</Button>
+      {/* <Button onClick={this.handleAnimationChange('push')}>Push</Button> */}
 
-
+      <HeaderMenu/>
       <Sidebar.Pushable as={Segment}>
 
         {vertical ? null : (

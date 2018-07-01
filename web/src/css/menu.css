@@ -25,4 +25,9 @@ max-width: calc(100% - 300px);
 
 .btn_bottom_g{
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total_dollar{
+
 }

@@ -26,3 +26,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.main_logo{
+  align-items: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding-left: 20px;
+}
+
+.main_menu_header{
+  margin: 0 !important;
+}

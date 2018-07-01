@@ -59,7 +59,7 @@ class Basket extends Component {
             </Table>
             <div className='btn_bottom_g'>
               <div>
-                Total: ${currentTotal}
+                Total: <span className='total_dollar'>$ {currentTotal}</span>
               </div>
               <Button animated floated='right'>
                   <Button.Content visible>Place order</Button.Content>
