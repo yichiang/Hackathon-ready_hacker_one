@@ -5,10 +5,9 @@ import './../../css/menu.css';
 import menuData_json from './../../data/menu.json';
 import PropTypes from 'prop-types';
 import MenuCard from './MenuCard';
+import Checkout from './Checkout';
 import Basket from '../order/Basket';
 import HeaderMenu from '../shared/HeaderMenu';
-import CreditCardInput from 'react-credit-card-input';
-
 import {
   Button,
   Checkbox,
@@ -30,16 +29,17 @@ class MenuMain extends Component {
   direction: 'left',
   dimmed: false,
   visible: false,
-  menuData: [],
+  menuData: menuData_json,
   selecItems:[],
   currentTotal: 10,
   isCheckoutPage: false,
+  isConfirmationPage: false,
   user: {cardNumber: '',expiry: '', cvc:''}
 }
 
 componentDidMount() {
      console.log("componentDidMount")
-     this.getItems();
+     //this.getItems();
      console.log(this.props)
 
    }
@@ -52,7 +52,7 @@ getItems = (lat, long) => {
 
   }).done(function(data) {
     console.log(data);
-    self.setState({menuData:data })
+    self.setState({menuData: data })
     //console.log("eva: data" ,data);
   });
 }
@@ -121,8 +121,14 @@ handleCardCVCChange = (e) => {
   this.setState({user: currentUser})
 
 }
+
+handleSubmitCheckout=()=>{
+  //Post Request
+
+  this.setState({isConfirmationPage: true, selecItems: [], visible: false})
+}
 render() {
-  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage, user } = this.state
+  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage,isConfirmationPage, user } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
@@ -158,35 +164,24 @@ render() {
           <Segment basic className={visible? 'minWidth':''}>
             <Header as='h2'>
               <Icon name='food'/>
-              Order #20092
+              New Order
             </Header>
 
             {isCheckoutPage?
+              isConfirmationPage?
               <Segment className='menu_card_parent'>
-              <Form>
-                <Form.Field>
-
-                <label>Credit Card</label>
-
-                <CreditCardInput
-                    cardNumberInputProps={{ value: user.cardNumber, onChange: this.handleCardNumberChange }}
-                    cardExpiryInputProps={{ value: user.expiry, onChange: this.handleCardExpiryChange }}
-                    cardCVCInputProps={{ value: user.cvc, onChange: this.handleCardCVCChange }}
-                    fieldClassName="input"
-                  />
-                </Form.Field>
-
-                <Form.Field>
-                  <label>Name on card</label>
-                  <input placeholder='Name on card' />
-                </Form.Field>
-                <Form.Field>
-                  <Checkbox label='Remember my card' />
-                </Form.Field>
-                <Button type='submit'>Submit</Button>
-              </Form>
-
-              </Segment>:
+                Thank you for ordering with us!
+                Your confirmation number is 2000
+              </Segment>
+              :
+              <Checkout
+                user={user}
+                handleCardNumberChange={this.handleCardNumberChange}
+                handleCardExpiryChange={this.handleCardExpiryChange}
+                handleCardCVCChange={this.handleCardCVCChange}
+                handleSubmitCheckout={this.handleSubmitCheckout}
+              />
+            :
               <Segment className='menu_card_parent'>
                 {menuData.map((x, i)=>
                   {return (
