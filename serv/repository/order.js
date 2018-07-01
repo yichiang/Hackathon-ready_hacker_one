@@ -1,29 +1,10 @@
 //Order Information
 const mysql=require('mysql');
-
-//Connect to database.
-var signIn=function(callback){
-  const con=mysql.createConnection({
-    host:"readyhack.cqti1tc8lxbn.us-east-1.rds.amazonaws.com",
-    user: "yichiang",
-    password: "yichiang"
-  });
-
-  con.connect(function(err){
-    if(err) {
-        console.log(err)
-      }else{
-      console.log("Connected!")};
-      con.query("USE hackerOneFoodService", function(obj){
-        console.log("Using hackerOneFoodService...");
-        callback(con);
-      });
-    });
-};
+const signIn=require('./signin.js');
 
 // GetOrderByID(orderID,callback)
 function getOrderByID(orderID,callback){
-  signIn(function(con){
+  signIn.signIn(function(con){
     var cmd = "SELECT * FROM order_tb WHERE orderId=" + orderID;
     console.log("Executing " + cmd);
     con.query(cmd, function(error, obj){
@@ -37,11 +18,7 @@ function getOrderByID(orderID,callback){
 
 function addFoodItemToOrder(userID,orderID,foodID,callback){
 
-  signIn(function(con){
-
-    //Pull down order
-
-
+  signIn.signIn(function(con){
     //Order with item ID exists
     var cmd="SELECT * FROM order_tb WHERE orderId=" + orderID + " and itemId=" + foodID;
     console.log(cmd);
