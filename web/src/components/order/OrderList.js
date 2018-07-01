@@ -1,13 +1,22 @@
+import $ from 'jquery'
 import React, { Component } from 'react';
 import { Header, Image, Table, Button, Icon, Segment, Tab } from 'semantic-ui-react'
 import HeaderMenu from '../shared/HeaderMenu';
+import orderData_json from './../../data/order.json';
 
 class OrderList extends Component {
+  state = {
+    //give default value in case demo internet issue
+    orders: orderData_json,
+    // orders: [],
+    urlDomain: 'http://localhost:3300/',
+
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      orders: []
-    }
+  }
+  componentDidMount() {
+      this.getOrders();
   }
 
   handleFulfilled = () => {
@@ -34,9 +43,13 @@ class OrderList extends Component {
     this.setState({orders: data })
   }
 
-  handleCancel = () => {
+  handleCancel = (OrderID) => {
     // POST to server to cancel
-
+    var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
+    if(foundOrder && foundOrder.length > 0){
+      console.log("foundOrder", foundOrder)
+      this.putOrder(foundOrder[0]);
+    }
     // Update state
     let data = [
       {
@@ -58,56 +71,58 @@ class OrderList extends Component {
     this.setState({orders: data })
   }
 
+  handleStatus = (x) => {
+    if(x.StatusFullfilled){
+      x.status = "fulfilled";
+      x.lastUpdated  = x.StatusFullfilled;
+    } else if(x.StatusCancelled){
+      x.status = "cancelled";
+      x.lastUpdated  = x.StatusCancelled;
+    }else{
+      x.status = "processing";
+      x.lastUpdated  = x.StatusNew;
+    }
+    return x;
+
+  }
   getOrders = () => {
-    // let url = "http://localhost:3300/api/orders/";
-    // var self = this;
-    // $.ajax({
-    //   url: url,
-    //   type: "GET",
-    // }).done(function(data) {
-    //   console.log(data);
-    //   data = [
-    //     {
-    //       id: 1,
-    //       status: 'processing',
-    //       lastUpdated: Date.now()
-    //     },
-    //     {
-    //       id: 2,
-    //       status: 'fulfilled',
-    //       lastUpdated: Date.now()
-    //     },
-    //     {
-    //       id: 3,
-    //       status: 'cancelled',
-    //       lastUpdated: Date.now()
-    //     }
-    //   ]
-    //   self.setState({orders: data })
-    // });
-    let data = [
-      {
-        id: 1,
-        status: 'processing',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 2,
-        status: 'fulfilled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 3,
-        status: 'cancelled',
-        lastUpdated: Date.now()
+    let url = this.state.urlDomain+'api/orders/';
+    var self = this;
+    $.ajax({
+      url: url,
+      type: "GET",
+
+    }).done(function(data) {
+      console.log(data);
+      if(data&&data.length > 0){
+        data = data.map(x=> self.handleStatus(x))
+        self.setState({orders: data })
       }
-    ]
-    this.setState({orders: data })
+      //console.log("eva: data" ,data);
+    });
   }
 
-  componentDidMount() {
-    this.getOrders();
+
+  putOrder = (order) => {
+    let url = this.state.urlDomain+'api/order/update';
+    var self = this;
+    $.ajax({
+      url: url,
+      type: "post",
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(data) {
+        console.log(data);
+        if(data){
+        }
+        //console.log("eva: data" ,data);
+      },
+      error: function(){
+      },
+      data: JSON.stringify(order)
+    });
   }
+
 
   render() {
     const table = (filter) => <Table basic='very' celled>
@@ -142,12 +157,12 @@ class OrderList extends Component {
 
             return (
               <Table.Row {...polar}>
-                <Table.Cell>{order.id}</Table.Cell>
+                <Table.Cell>{order.OrderID}</Table.Cell>
                 <Table.Cell>{status}</Table.Cell>
                 <Table.Cell>{new Date(order.lastUpdated).toLocaleString()}</Table.Cell>
                 <Table.Cell>
-                  <Button negative disabled={disabled} onClick={this.handleCancel}>Cancel</Button>
-                  <Button positive disabled={disabled} onClick={this.handleFulfilled}>Fulfill</Button>
+                  <Button negative disabled={disabled} onClick={() => this.handleCancel(order.OrderID)}>Cancel</Button>
+                  <Button positive disabled={disabled} onClick={() => this.handleFulfilled(order.OrderID)}>Fulfill</Button>
                 </Table.Cell>
               </Table.Row>
             );
@@ -165,7 +180,7 @@ class OrderList extends Component {
     return (
         <div>
           <HeaderMenu/>
-          <Segment>                
+          <Segment>
               <h1>
                 <Icon name='shopping food'></Icon>
                 Orders
@@ -173,7 +188,7 @@ class OrderList extends Component {
               <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
               <Button color='facebook' style={style.export}>
                 <Icon name='file excel' /> Export
-              </Button>        
+              </Button>
           </Segment>
         </div>
     );

@@ -29,7 +29,9 @@ class MenuMain extends Component {
   direction: 'left',
   dimmed: false,
   visible: false,
+  //give default value in case demo internet issue
   menuData: menuData_json,
+  // menuData: [],
   selecItems:[],
   currentTotal: 10,
   isCheckoutPage: false,
@@ -43,7 +45,7 @@ class MenuMain extends Component {
 
 componentDidMount() {
      console.log("componentDidMount")
-     //this.getItems();
+     this.getItems();
      this.getUserId();
      console.log(this.props.match.params.id)
 
@@ -67,7 +69,7 @@ componentDidMount() {
      });
    }
     getItems = (lat, long) => {
-      let url = this.state.urlDomain+"/api/item/";
+      let url = this.state.urlDomain+"api/item/";
       var self = this;
       $.ajax({
         url: url,

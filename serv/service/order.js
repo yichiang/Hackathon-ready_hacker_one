@@ -7,6 +7,12 @@ var addNewOrder = function(user, items, callback){
   });
 };
 
+var updateOrder = function(order, callback){
+  orderRepo.updateOrder(order, function(result){
+    callback(result);
+  });
+};
+
 var getAllOrders = function(callback){
   orderRepo.getAllOrders(function(data){
   // var ret = [];
@@ -24,7 +30,15 @@ var getAllOrders = function(callback){
 });
 };
 
+var getOrderedItemsCSV = function(callback){
+  orderRepo.getOrderedItems(function(data){
+    console.log(data);
+  });
+};
+
 module.exports = {
     addNewOrder: addNewOrder,
-    getAllOrders: getAllOrders
+    updateOrder: updateOrder,
+    getAllOrders: getAllOrders,
+    getOrderedItemsCSV: getOrderedItemsCSV
 };

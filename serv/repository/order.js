@@ -54,7 +54,7 @@ function addFoodItemsToOrder(orderID, user, items, callback){
 
     for (var i = 0; i < items.length; i++) {
 
-      var newValue = [user.UserID, orderID, items[i].ItemID, items[i].qty, items[i].placed, "NULL", "NULL"];
+      var newValue = [user.userId, orderID, items[i].itemId, items[i].order, items[i].placed, "NULL", "NULL"];
       values.push(newValue);
     }
     console.log("Executing: " + sql);
@@ -134,10 +134,23 @@ function updateOrder(order, callback){
   });
 };
 
+function getOrderedItems(callback){
+  signIn.signIn(function(con){
+    var cmd = "SELECT orderId, name, imgUrl, placed, fulfilled, canceled FROM order_tb INNER JOIN item ON order_tb.itemId = item.itemId";
+    console.log("Executing: " + cmd);
+    con.query(cmd, function(error, data){
+      if(error) throw error;
+      con.end();
+      callback(data);
+    });
+  });
+};
+
 module.exports={
   addNewOrder: addNewOrder,
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
   getAllOrders: getAllOrders,
-  updateOrder: updateOrder
+  updateOrder: updateOrder,
+  getOrderedItems: getOrderedItems
 };

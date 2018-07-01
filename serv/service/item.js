@@ -5,7 +5,7 @@ var getAvailableItems = function(callback){
     var ret = [];
     for(var i = 0; i < data.length; i++){
       ret.push({
-        id: data[i].id,
+        itemId: data[i].itemId,
         name: data[i].name,
         desc: data[i].description,
         imageSrc: data[i].imgUrl,
