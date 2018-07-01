@@ -48,6 +48,9 @@ class OrderList extends Component {
     var foundOrder = this.state.orders.filter(x => x.OrderID == OrderID);
     if(foundOrder && foundOrder.length > 0){
       console.log("foundOrder", foundOrder)
+      foundOrder[0].StatusCancelled = new Date();
+      foundOrder[0].StatusFullfilled = null;
+
       this.putOrder(foundOrder[0]);
     }
     // Update state
@@ -114,6 +117,7 @@ class OrderList extends Component {
       success: function(data) {
         console.log(data);
         if(data){
+          this.getOrders();
         }
         //console.log("eva: data" ,data);
       },

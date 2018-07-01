@@ -124,7 +124,9 @@ function getAllOrders(callback){
 
 function updateOrder(order, callback){
   signIn.signIn(function(con){
-    var cmd = "UPDATE order SET StatusFullfilled=" + order.StatusFullfilled + ", StatusCancelled=" + order.StatusCancelled + " WHERE OrderID=" + order.OrderID;
+    var StatusFullfilled = order&&order.StatusFullfilled? con.escape(order.StatusFullfilled): "NULL";
+    var StatusCancelled = order&&order.StatusCancelled? con.escape(order.StatusCancelled): "NULL";
+    var cmd = "UPDATE hackerOneFoodService.Order_main SET StatusFullfilled=" + StatusFullfilled + ", StatusCancelled=" + StatusCancelled+ " WHERE OrderID=" + order.OrderID;
     console.log("Executing: " + cmd);
     con.query(cmd, function(error, data){
       if(error) throw error;
