@@ -97,11 +97,11 @@ class Login extends Component {
            if(data && data.length > 0){
              self.props.history.push('/menu/'+data[0].userId);
            }else{
-             self.props.history.push('/menu/'+ 1);
+             self.props.history.push('/menu/'+ 4);
            }
        },
        error: function(){
-         self.props.history.push('/menu/'+ 1);
+         self.props.history.push('/menu/'+ 4);
        },
        data: JSON.stringify(cUser)
    });

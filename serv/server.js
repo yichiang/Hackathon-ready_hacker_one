@@ -55,8 +55,10 @@ app.get('/api/orders', function (req, res, next) {
 //GET /api/order/csv
 app.get('/api/order/csv', function (req, res, next) {
   orderService.getOrderedItemsCSV(function(csv){
+
     res.setHeader('Content-disposition', 'attachment; filename=orders.csv');
-    res.set('Content-Type', 'text/csv');
+    res.set('Content-Type', 'application/octet-stream');
+    res.download('orders.csv');
     res.status(200).send(csv);
   });
 })

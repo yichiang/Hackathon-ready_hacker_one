@@ -172,9 +172,12 @@ class OrderList extends Component {
                 Orders
               </h1>
               <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-              <Button color='facebook' style={style.export} onClick={this.handleExport}>
-                <Icon name='file excel' /> Export
-              </Button>
+
+              <a href='http://localhost:3300/api/order/csv' download>
+                <Button color='facebook' style={style.export} onClick={this.handleExport}>
+                  <Icon name='file excel' /> Export
+                </Button>
+              </a>
           </Segment>
         </div>
     );
