@@ -1,6 +1,7 @@
-# Ready Hacker One Web Service! 8-)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-## Created by: Yi, Andy, Joe, & Claire
+# <p align="center"> Ready Hacker One Web Service!
+![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat") </p>
+## <p align="center">Created by: Yi, Andy, Joe, & Claire </p>
+### <p align="center">Ready Hacker One Hackathon by Exsilo in Redmond, WA (June 30th, 2018-July 1st, 2018)</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bonnie's Famous Vegan Diner is known for excellent dishes created by autonomous chefs. With advanced robotics, almost everything in the restaurant is operated by machines -  cooking, serving, and cleaning. The remaining manual element is the ordering process. This web application allows customers to create orders from their own devices via a web application. Our software integrates nicely with the diners facial recognition software that ties customers to their account profile. As soon as they walk into the diner, we know who they are! 
 
 ***
