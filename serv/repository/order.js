@@ -138,7 +138,7 @@ function updateOrder(order, callback){
 
 function getOrderedItems(callback){
   signIn.signIn(function(con){
-    var cmd = "SELECT orderId, name, imgUrl, placed, fulfilled, canceled FROM order_tb INNER JOIN item ON order_tb.itemId = item.itemId";
+    var cmd = "SELECT orderId, name, imgUrl, placed, fulfilled, canceled, qty FROM order_tb INNER JOIN item ON order_tb.itemId = item.itemId";
     console.log("Executing: " + cmd);
     con.query(cmd, function(error, data){
       if(error) throw error;

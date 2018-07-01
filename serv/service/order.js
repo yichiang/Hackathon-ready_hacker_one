@@ -32,9 +32,9 @@ var getAllOrders = function(callback){
 
 var getOrderedItemsCSV = function(callback){
   orderRepo.getOrderedItems(function(data){
-    var csv = "";
+    var csv = "orderId, name,qty,imgUrl,placed,fulfilled,canceled \r\n";
     for(var i = 0; i < data.length; i++){
-      var row = data[i].orderId + "," + data[i].name + "," + data[i].imgUrl + "," + data[i].placed + "," + data[i].fulfilled + "," + data[i].canceled + "\r\n";
+      var row = data[i].orderId + "," + data[i].name + ","  + data[i].qty + "," + data[i].imgUrl + "," + data[i].placed + "," + data[i].fulfilled + "," + data[i].canceled + "\r\n";
       csv += row;
     }
     callback(csv);
