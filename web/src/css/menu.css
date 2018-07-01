@@ -1,7 +1,7 @@
 .menu_card_parent {
   display: flex;
   flex-wrap: wrap;
-  background-color: #F1EEEE !important;
+  background-color: white !important;
   min-height: 80vh;
 }
 .menu_card {
@@ -43,4 +43,14 @@ max-width: calc(100% - 300px);
 
 #cvc{
   width: 304px;
+}
+
+.confirmation {
+  text-align: center;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.wait-time {
+  margin-top: 40px;
 }
