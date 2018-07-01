@@ -63,7 +63,7 @@ class Basket extends Component {
               </div>
               {!isCheckoutPage&&
                 <Button animated floated='right' onClick={handleSubmitReview}>
-                    <Button.Content visible>Place order</Button.Content>
+                    <Button.Content visible>Proceed to checkout</Button.Content>
                     <Button.Content hidden>
                         <Icon name='right arrow' />
                     </Button.Content>
