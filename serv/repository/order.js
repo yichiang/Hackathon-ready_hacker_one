@@ -39,7 +39,7 @@ function addNewOrder(user, items, callback){
 
       addFoodItemsToOrder(orderID, user, items, function(result){
         con.end();
-        callback(result);
+        callback(orderID);
       });
     });
   });
