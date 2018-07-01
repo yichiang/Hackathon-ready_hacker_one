@@ -43,7 +43,7 @@ class MenuMain extends Component {
 
 componentDidMount() {
      console.log("componentDidMount")
-     //this.getItems();
+     this.getItems();
      this.getUserId();
      console.log(this.props.match.params.id)
 
@@ -67,7 +67,7 @@ componentDidMount() {
      });
    }
     getItems = (lat, long) => {
-      let url = this.state.urlDomain+"/api/item/";
+      let url = this.state.urlDomain+"api/item/";
       var self = this;
       $.ajax({
         url: url,
