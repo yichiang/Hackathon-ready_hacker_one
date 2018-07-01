@@ -36,3 +36,11 @@ max-width: calc(100% - 300px);
 .price_meta{
   text-align: right;
 }
+
+#card-expiry{
+  width: 304px;
+}
+
+#cvc{
+  width: 304px;
+}

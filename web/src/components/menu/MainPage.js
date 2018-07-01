@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import MenuCard from './MenuCard';
 import Basket from '../order/Basket';
 import HeaderMenu from '../shared/HeaderMenu';
+import CreditCardInput from 'react-credit-card-input';
 
 import {
   Button,
@@ -33,6 +34,7 @@ class MenuMain extends Component {
   selecItems:[],
   currentTotal: 10,
   isCheckoutPage: false,
+  user: {cardNumber: '',expiry: '', cvc:''}
 }
 
 handleAnimationChange = animation => () =>
@@ -73,8 +75,33 @@ calcTotal = (items) =>{
 handleSubmitReview = () => {
   this.setState({isCheckoutPage: !this.state.isCheckoutPage})
 }
+handleCardNumberChange = (e) => {
+  console.log(e.target.value)
+  var inputVal = e.target.value;
+  var currentUser = this.state.user;
+  currentUser.cardNumber=inputVal;
+  this.setState({user: currentUser})
+
+}
+
+handleCardExpiryChange = (e) => {
+  console.log(e.target.value)
+  var inputVal = e.target.value;
+  var currentUser = this.state.user;
+  currentUser.expiry=inputVal;
+  this.setState({user: currentUser})
+
+}
+handleCardCVCChange = (e) => {
+  console.log(e.target.value)
+  var inputVal = e.target.value;
+  var currentUser = this.state.user;
+  currentUser.cvc=inputVal;
+  this.setState({user: currentUser})
+
+}
 render() {
-  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage } = this.state
+  const { animation, dimmed, direction, visible, menuData, selecItems, currentTotal, isCheckoutPage, user } = this.state
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
@@ -115,18 +142,25 @@ render() {
 
             {isCheckoutPage?
               <Segment className='menu_card_parent'>
-              Checkout
               <Form>
                 <Form.Field>
-                  <label>Credit Card</label>
-                  <input placeholder='First Name' />
+
+                <label>Credit Card</label>
+
+                <CreditCardInput
+                    cardNumberInputProps={{ value: user.cardNumber, onChange: this.handleCardNumberChange }}
+                    cardExpiryInputProps={{ value: user.expiry, onChange: this.handleCardExpiryChange }}
+                    cardCVCInputProps={{ value: user.cvc, onChange: this.handleCardCVCChange }}
+                    fieldClassName="input"
+                  />
+                </Form.Field>
+
+                <Form.Field>
+                  <label>Name on card</label>
+                  <input placeholder='Name on card' />
                 </Form.Field>
                 <Form.Field>
-                  <label>Last Name</label>
-                  <input placeholder='Last Name' />
-                </Form.Field>
-                <Form.Field>
-                  <Checkbox label='I agree to the Terms and Conditions' />
+                  <Checkbox label='Remember me' />
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
               </Form>
