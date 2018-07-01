@@ -7,6 +7,12 @@ var addNewOrder = function(user, items, callback){
   });
 };
 
+var updateOrder = function(order, callback){
+  orderRepo.updateOrder(order, function(result){
+    callback(result);
+  });
+};
+
 var getAllOrders = function(callback){
   orderRepo.getAllOrders(function(data){
   // var ret = [];
@@ -26,5 +32,6 @@ var getAllOrders = function(callback){
 
 module.exports = {
     addNewOrder: addNewOrder,
+    updateOrder: updateOrder,
     getAllOrders: getAllOrders
 };

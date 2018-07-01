@@ -35,6 +35,16 @@ app.post('/api/order/create', urlencodedParser, function (req, res) {
   });
 })
 
+// POST /api/order/update an order
+app.post('/api/order/update', urlencodedParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  console.log(req.body)
+  // res.send('welcome, ' + req.body.username)
+  orderService.updateOrder(req.body.user, req.body.items, function(data){
+    res.json(data);
+  });
+})
+
 //GET /api/orders
 app.get('/api/orders', function (req, res, next) {
   orderService.getAllOrders(function(orders){
@@ -52,7 +62,7 @@ app.get('/api/user/:userId', urlencodedParser, function (req, res) {
     userService.getUserById(req.params.userId, function(data){
       res.json(data);
     });
-    
+
   }else{
     res.json([]);
   }
