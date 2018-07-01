@@ -37,7 +37,7 @@ function addNewOrder(user, items, callback){
       console.log("1 record inserted, ID: " + result.insertId);
       var orderID = result.insertId;
 
-      addFoodItemToOrder(orderID, user, items, function(result){
+      addFoodItemsToOrder(orderID, user, items, function(result){
         con.end();
         callback(result);
       });
@@ -47,19 +47,17 @@ function addNewOrder(user, items, callback){
 
 function addFoodItemsToOrder(orderID, user, items, callback){
 
-  //console.log(user);
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    console.log('!!!!!!!!!!!!!!!!!!!!!!');
+  signIn.signIn(function(con) {
+
     var sql = "INSERT INTO order_tb (userId,orderId,itemId,qty,placed,fulfilled,canceled) VALUES ?";
     var values = [];
 
     for (var i = 0; i < items.length; i++) {
 
       var newValue = [user.UserID, orderID, items[i].ItemID, items[i].qty, items[i].placed, "NULL", "NULL"];
-      values.append(newValue);
+      values.push(newValue);
     }
+    console.log("Executing: " + sql);
     con.query(sql, [values], function (err, result) {
       if (err) throw err;
       console.log("Number of records inserted: " + result.affectedRows);
