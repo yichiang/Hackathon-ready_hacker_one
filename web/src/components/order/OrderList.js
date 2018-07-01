@@ -2,10 +2,13 @@ import $ from 'jquery'
 import React, { Component } from 'react';
 import { Header, Image, Table, Button, Icon, Segment, Tab } from 'semantic-ui-react'
 import HeaderMenu from '../shared/HeaderMenu';
+import orderData_json from './../../data/order.json';
 
 class OrderList extends Component {
   state = {
-    orders: [],
+    //give default value in case demo internet issue
+    orders: orderData_json,
+    // orders: [],
     urlDomain: 'http://localhost:3300/',
 
   }

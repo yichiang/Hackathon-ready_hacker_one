@@ -29,7 +29,9 @@ class MenuMain extends Component {
   direction: 'left',
   dimmed: false,
   visible: false,
+  //give default value in case demo internet issue
   menuData: menuData_json,
+  // menuData: [],
   selecItems:[],
   currentTotal: 10,
   isCheckoutPage: false,
