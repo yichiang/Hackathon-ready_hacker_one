@@ -1,13 +1,19 @@
+import $ from 'jquery'
 import React, { Component } from 'react';
 import { Header, Image, Table, Button, Icon, Segment, Tab } from 'semantic-ui-react'
 import HeaderMenu from '../shared/HeaderMenu';
 
 class OrderList extends Component {
+  state = {
+    orders: [],
+    urlDomain: 'http://localhost:3300/',
+
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      orders: []
-    }
+  }
+  componentDidMount() {
+      this.getOrders();
   }
 
   handleFulfilled = () => {
@@ -58,56 +64,57 @@ class OrderList extends Component {
     this.setState({orders: data })
   }
 
+  // getOrders = () => {
+  //
+  //   let data = [
+  //     {
+  //       id: 1,
+  //       status: 'processing',
+  //       lastUpdated: Date.now()
+  //     },
+  //     {
+  //       id: 2,
+  //       status: 'fulfilled',
+  //       lastUpdated: Date.now()
+  //     },
+  //     {
+  //       id: 3,
+  //       status: 'cancelled',
+  //       lastUpdated: Date.now()
+  //     }
+  //   ]
+  //   this.setState({orders: data })
+  // }
   getOrders = () => {
-    // let url = "http://localhost:3300/api/orders/";
-    // var self = this;
-    // $.ajax({
-    //   url: url,
-    //   type: "GET",
-    // }).done(function(data) {
-    //   console.log(data);
-    //   data = [
-    //     {
-    //       id: 1,
-    //       status: 'processing',
-    //       lastUpdated: Date.now()
-    //     },
-    //     {
-    //       id: 2,
-    //       status: 'fulfilled',
-    //       lastUpdated: Date.now()
-    //     },
-    //     {
-    //       id: 3,
-    //       status: 'cancelled',
-    //       lastUpdated: Date.now()
-    //     }
-    //   ]
-    //   self.setState({orders: data })
-    // });
-    let data = [
-      {
-        id: 1,
-        status: 'processing',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 2,
-        status: 'fulfilled',
-        lastUpdated: Date.now()
-      },
-      {
-        id: 3,
-        status: 'cancelled',
-        lastUpdated: Date.now()
+    let url = this.state.urlDomain+'api/orders/';
+    var self = this;
+    $.ajax({
+      url: url,
+      type: "GET",
+
+    }).done(function(data) {
+      console.log(data);
+      if(data&&data.length > 0){
+        data = data.map(x=> {
+          if(x.StatusFullfilled){
+            x.status = "fulfilled";
+            x.lastUpdated  = x.StatusFullfilled;
+          } else if(x.StatusCancelled){
+            x.status = "cancelled";
+            x.lastUpdated  = x.StatusCancelled;
+          }else{
+            x.status = "processing";
+            x.lastUpdated  = x.StatusNew;
+          }
+
+          return x;
+        })
+        self.setState({orders: data })
       }
-    ]
-    this.setState({orders: data })
+      //console.log("eva: data" ,data);
+    });
   }
 
-  componentDidMount() {
-    this.getOrders();
-  }
 
   render() {
     const table = (filter) => <Table basic='very' celled>
@@ -142,7 +149,7 @@ class OrderList extends Component {
 
             return (
               <Table.Row {...polar}>
-                <Table.Cell>{order.id}</Table.Cell>
+                <Table.Cell>{order.OrderID}</Table.Cell>
                 <Table.Cell>{status}</Table.Cell>
                 <Table.Cell>{new Date(order.lastUpdated).toLocaleString()}</Table.Cell>
                 <Table.Cell>
@@ -165,7 +172,7 @@ class OrderList extends Component {
     return (
         <div>
           <HeaderMenu/>
-          <Segment>                
+          <Segment>
               <h1>
                 <Icon name='shopping food'></Icon>
                 Orders
@@ -173,7 +180,7 @@ class OrderList extends Component {
               <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
               <Button color='facebook' style={style.export}>
                 <Icon name='file excel' /> Export
-              </Button>        
+              </Button>
           </Segment>
         </div>
     );
