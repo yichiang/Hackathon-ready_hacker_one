@@ -2,6 +2,7 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 var itemService = require('./service/item.js');
+var orderService = require('./service/order.js');
 var userService = require('./service/user.js');
 var bodyParser = require('body-parser')
 
@@ -23,6 +24,17 @@ app.post('/api/login', urlencodedParser, function (req, res) {
     res.json(data);
   });
 })
+
+// POST /api/login gets urlencoded bodies
+app.post('/api/order/create', urlencodedParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  console.log(req.body)
+  // res.send('welcome, ' + req.body.username)
+  orderService.addNewOrder(req.body, function(data){
+    res.json(data);
+  });
+})
+
 
 // get /api/user/:id gets urlencoded bodies
 app.get('/api/user/:userId', urlencodedParser, function (req, res) {

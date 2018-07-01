@@ -114,5 +114,6 @@ function submitFoodOrder(orderID){
 module.exports={
   getOrderByID : getOrderByID,
   addFoodItemToOrder : addFoodItemToOrder,
-  submitFoodOrder : submitFoodOrder
+  submitFoodOrder : submitFoodOrder, 
+  addNewOrder: addNewOrder
 };
