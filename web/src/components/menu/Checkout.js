@@ -44,7 +44,7 @@ class Checkout extends Component {
       <Form.Field>
         <Checkbox label='Remember my card' />
       </Form.Field>
-      <Button type='submit' onClick={this.props.handleSubmitCheckout}>Submit Order</Button>
+      <Button onClick={this.props.handleSubmitCheckout}>Submit Order</Button>
     </Form>
 
     </Segment>

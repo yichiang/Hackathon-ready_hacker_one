@@ -115,7 +115,7 @@ class Login extends Component {
    }, 5000);
    setTimeout(() => {
     this.setState({
-      message: 'Joseph, smile to get started :)'
+      message: 'Yi, smile to get started :)'
     })
  }, 10000);
  }
@@ -152,7 +152,7 @@ class Login extends Component {
                         </Form.Field>
                         <Form.Field>
                           <label>Password</label>
-                          <input placeholder='Password' onChange={this.handlePasswordChange}/>
+                          <input placeholder='Password' onChange={this.handlePasswordChange} type='password'/>
                         </Form.Field>
                         <Button type='submit' onClick={() => this.showMenu()}>Submit</Button>
                         </Form>

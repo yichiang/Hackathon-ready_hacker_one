@@ -37,7 +37,7 @@ class MenuMain extends Component {
   isCheckoutPage: false,
   isConfirmationPage: false,
   userInfo: {},
-  user: {cardNumber: '',expiry: '', cvc:''},
+  user: {cardNumber: '5105105105105100',expiry: '', cvc:''},
   urlDomain: 'http://localhost:3300/',
   confirmationNumber: null
 
@@ -231,14 +231,14 @@ render() {
               isConfirmationPage?
               <Segment className='menu_card_parent'>
                 <div className='confirmation'>
-                  {confirmationNumber?                   
-                    <div>                    
+                  {confirmationNumber?
+                    <div>
                       <Icon name='checkmark' color='green' size='massive' />
                       <h1>Thanks {userInfo.displayName}!</h1>
                       <div>
                         Your order has been recieved!
                         Your confirmation number is {confirmationNumber}
-                      </div>                      
+                      </div>
                       <div className='wait-time'>
                         Expected wait time:
                       </div>
