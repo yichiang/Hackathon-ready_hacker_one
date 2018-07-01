@@ -40,10 +40,6 @@ html .ui.padded.segment {
   padding: 2em;
 }
 
-html img {
-  box-shadow: black 0 0 100px;
-}
-
 .main_logo{
   padding-left: 20px !important;
   align-items: center !important;
