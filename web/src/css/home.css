@@ -5,21 +5,29 @@
 }
 
 .login-container {
-    margin-top: 10%;
+    margin-top: 0%;
 }
 
 .welcome {
-    font-size: 80px !important;
+    font-size: 4.2vw !important;
     color: white !important;
     text-shadow: white 0 0 10px;
     text-align: center !important;
     padding: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    line-height: 4.2vw !important;
 }
 
 .instruction {
     padding: 20px;
-    font-size: 32px !important;
+    font-size: 2.0vw !important;
     text-align: center !important;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    line-height: 2.0vw !important;
 }
 
 @media only screen and (max-width: 600px) {
