@@ -1,4 +1,4 @@
-
+import $ from 'jquery'
 import React, { Component } from 'react';
 import './../../App.css';
 import './../../css/menu.css';
@@ -30,12 +30,33 @@ class MenuMain extends Component {
   direction: 'left',
   dimmed: false,
   visible: false,
-  menuData: menuData_json,
+  menuData: [],
   selecItems:[],
   currentTotal: 10,
   isCheckoutPage: false,
   user: {cardNumber: '',expiry: '', cvc:''}
 }
+
+componentDidMount() {
+     console.log("componentDidMount")
+     this.getItems();
+     console.log(this.props)
+
+   }
+getItems = (lat, long) => {
+  let url = "http://localhost:3300/api/item/";
+  var self = this;
+  $.ajax({
+    url: url,
+    type: "GET",
+
+  }).done(function(data) {
+    console.log(data);
+    self.setState({menuData:data })
+    //console.log("eva: data" ,data);
+  });
+}
+
 
 handleAnimationChange = animation => () =>
   this.setState({ animation, visible: !this.state.visible })
@@ -160,7 +181,7 @@ render() {
                   <input placeholder='Name on card' />
                 </Form.Field>
                 <Form.Field>
-                  <Checkbox label='Remember me' />
+                  <Checkbox label='Remember my card' />
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
               </Form>
