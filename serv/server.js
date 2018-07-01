@@ -30,7 +30,7 @@ app.post('/api/order/create', urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(req.body)
   // res.send('welcome, ' + req.body.username)
-  orderService.addNewOrder(req.body, function(data){
+  orderService.addNewOrder(req.body.user, req.body.items, function(data){
     res.json(data);
   });
 })

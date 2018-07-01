@@ -1,8 +1,8 @@
 var orderRepo = require('../repository/order.js');
 
 
-var addNewOrder = function(callback){
-    orderRepo.addNewOrder(function(data){
+var addNewOrder = function(user, items, callback){
+    orderRepo.addNewOrder(user, items, function(data){
     var ret = [];
     for(var i = 0; i < data.length; i++){
       ret.push({
