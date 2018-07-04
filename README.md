@@ -6,11 +6,11 @@
 
 ## <p align="center">Created by: Yi, Andy, Joe, & Claire </p>
 #### <p align="center">Ready Hacker One Hackathon by Exsilo in Redmond, WA (June 30th, 2018-July 1st, 2018)</p>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bonnie's Famous Vegan Diner is known for excellent dishes created by autonomous chefs. With advanced robotics, almost everything in the restaurant is operated by machines -  cooking, serving, and cleaning. The remaining manual element is the ordering process. This web application allows customers to create orders from their own devices via a web application. Our software integrates nicely with the diners facial recognition software that ties customers to their account profile. As soon as they walk into the diner, we know who they are! 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bonnie's Famous Vegan Diner is known for excellent dishes created by autonomous chefs. With advanced robotics, almost everything in the restaurant is operated by machines -  cooking, serving, and cleaning. The remaining manual element is the ordering process. This web application allows customers to create orders from their own devices via a web application. Our software integrates nicely with the diners facial recognition software that ties customers to their account profile. As soon as they walk into the diner, we know who they are!
 
 ***
 
-# Requirements: 
+# Requirements:
 ### Node
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Node](http://nodejs.org/) is really easy to install & now includes [NPM](https://npmjs.org/).
 You should be able to run the following command after the installation procedure
@@ -35,10 +35,10 @@ $ npm --version
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Just go on [official Node.js website](http://nodejs.org/) & grab the installer.
 Also, be sure to have `git` available in your PATH, `npm` might need it.
-*** 
+***
 
 
-# Installation: 
+# Installation:
 ```
 $ git clone https://github.com/josephkniest/ready-hacker-one-web-service.git
 $ cd ready-hacker-one-web-service/web
@@ -54,7 +54,7 @@ $ cd ..
 $ cd serv
 $ node server.js
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run Application 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run Application
 ```    
 $ cd web
 $ npm start
@@ -78,9 +78,31 @@ A common way to update is by doing
 # Built With:
 - #### HTML, JavaScript ([React](http://facebook.github.io/react) is used for UI), CSS, & MySQL
 
-*** 
+***
 # Acknowledgements:
 - #### Thank you to [Exsilio](http://www.exsilio.com/) & [Orange Studios](http://www.orangestudios.com/) for hosting an unforgettable 24 hour hackathon!
 
+# Screenshots:
 
+Preview Landing Page: we implement UI for the restaurant might have face recognition technology.
+![View](/screenshot/landing_page_1.png)
 
+![View](/screenshot/landing_page_2.png)
+
+Menu: the view before you choose any items
+![View](/screenshot/menu_1.png)
+
+Menu: basket view will appear after you choose any items
+![View](/screenshot/menu_2.png)
+
+Menu: After you click "Proceed to checkout", it will go to checkout view.
+![View](/screenshot/menu_3.png)
+
+Menu: It will show confirmation number.
+![View](/screenshot/menu_4.png)
+
+Order view: it is for internal employees. You can filter by status or change status.
+![View](/screenshot/order_1.png)
+![View](/screenshot/order_2.png)
+![View](/screenshot/order_3.png)
+![View](/screenshot/order_4.png)
