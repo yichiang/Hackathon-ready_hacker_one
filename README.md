@@ -41,8 +41,12 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 # Installation: 
 ```
 $ git clone https://github.com/josephkniest/ready-hacker-one-web-service.git
-$ cd ready-hacker-one-web-service
+$ cd ready-hacker-one-web-service/web
 $ npm install
+$ cd ..
+$ cd serv
+$ npm install
+$ cd ..
 ```
 ## Start & watch
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Server
@@ -50,7 +54,7 @@ $ npm install
 $ cd serv
 $ node server.js
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run Application
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Run Application 
 ```    
 $ cd web
 $ npm start
